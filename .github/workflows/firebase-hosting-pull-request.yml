@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Firebase 
-        run: cd functions && npm install 
+        run: cd functions/ && npm install 
       - uses: actions/checkout@v2
       # - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
