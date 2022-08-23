@@ -34,6 +34,7 @@ exports.addAllNewsToFirestore = functions.runWith({ secrets: ["FIRSTSETUPPASSWOR
                             title: articles.title,
                             url: articles.url,
                             urlToImage: articles.urlToImage,
+                            likes: 0,
                         });
                     });
                     batch.commit().then(() => {
@@ -87,6 +88,7 @@ exports.addNewNewsToFirestore = functions.pubsub.schedule('every 20 minutes').ti
                         title: articles.title,
                         url: articles.url,
                         urlToImage: articles.urlToImage,
+                        likes: 0,
                     });
                     functions.logger.info("DEV! New news are added to firestore. News title: "+articles.title);
                 });
@@ -123,7 +125,7 @@ exports.getNews = functions.https.onRequest((request, response) => {
         // Retrieve articles from firestore acording to the request parameters
         db.collection("articles").orderBy("publishedAt", order).limit(totalResult).get().then(snapshot => {
             snapshot.forEach(doc => {
-                articles.push(doc.data());
+                articles.push(doc);
             });
             functions.logger.info("DEV! Your code succeeded!");
             return response.status(200).send(articles);
@@ -137,7 +139,7 @@ exports.getNews = functions.https.onRequest((request, response) => {
         // Search for the keyword in the title and description of the articles
         db.collection("articles").where("title", "in", keywordArray).orderBy("publishedAt", order).limit(totalResult).get().then(snapshot => {
             snapshot.forEach(doc => {
-                articles.push(doc.data());
+                articles.push(doc);
             });
             functions.logger.info("DEV! Your code succeeded!");
             return response.status(200).send(articles);
@@ -152,5 +154,20 @@ exports.getNewsLenghtFromFirestore = functions.https.onRequest((_request, respon
     db.collection("articles").get().then(function(querySnapshot) {      
         console.log(querySnapshot.size); 
         return response.status(200).send("Your total news are: "+querySnapshot.size);
+    });
+});
+
+
+// Won't work if there are no likes on some articles
+// NOTE: This will return whole collection of articles UNEDITED AND UNORDERED
+exports.listPopularNewsFromFirestore = functions.https.onRequest((_request, response) => {
+    db.collection("articles").orderBy("likes", "desc").limit(10).get().then(function(querySnapshot) {
+        let articles = [];
+        querySnapshot.forEach(function(doc) {
+            articles.push(doc);
+        });
+        return response.status(200).send(articles);
+    }).catch(err => {
+        return response.status(500).send("Sorry! Server is not available. <br> Detailed error log: "+err);
     });
 });
