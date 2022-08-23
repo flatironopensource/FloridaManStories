@@ -1,0 +1,7 @@
+{
+    "firebase": {
+        "projectId": "florida-man-stories",
+        "storageBucket": "florida-man-stories.appspot.com",
+        "locationId": "us-central"
+    }
+}
