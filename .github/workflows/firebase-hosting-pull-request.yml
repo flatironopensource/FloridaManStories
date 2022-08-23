@@ -3,6 +3,12 @@
 
 name: Deploy to Firebase Hosting on PR
 'on': pull_request
+
+env:
+  FIRSTSETUPPASSWORD: '${{ secrets.FIRSTSETUPPASSWORD }}'
+  NEWSAPIKEY: '${{ secrets.NEWSAPIKEY }}'
+  FIREBASE_TOKEN: '${{ secrets.FIREBASE_TOKEN }}'
+
 jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
@@ -15,3 +21,8 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FLORIDA_MAN_STORIES }}'
           projectId: florida-man-stories
+      - name:  Deploy to Firebase Functions
+        run: cd functions && npm install 
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
