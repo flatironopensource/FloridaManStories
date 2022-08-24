@@ -48,6 +48,24 @@
                     border: 1px solid #ccc;
                 }
                 }
+                .card {
+                    width: 400px; 
+                    display: flex
+                }
+                .card-image-top{
+                    width: 200px; 
+                    height: 150px
+                }
+                .card-title{
+                    text-align: center;
+                }
+                .card-text{
+                    text-align: center;
+                }
+                .read{
+                    display: block;
+                    text-align: center;
+                }
             </style>
     </head>
     <body>
@@ -81,14 +99,20 @@
 
         <div style="padding-left:16px">
             <h2>Your Daily Florida Man News:</h2>
-            <div class="box1">
-                <div class="card" style="width: 18rem;">
-                <img src="" class="card-img-top" alt="">
-                <div class="card-body">
-                  <p class="card-text">text</p>
-                </div>
-              </div>
+            <!--fetch and use forEach to place data into the html cards-->
+           <!-- <div style="display: flex;">
+            <span style=><img style="width: 250px; height: 250px" src="https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"></span>
+            <span style="width: 250px; text-align: center">Title</span>
+           </div>
+           <span style=>text</span> -->
+           <div class="card" style="width:400px; display: flex">
+            <img class="card-img-top" style="width: 200px; height: 150px"src="https://coduber.com/wp-content/uploads/2022/03/image-1-768x683.png?ezimgfmt=ng:webp/ngcb5" alt="Card image">
+            <div class="card-body">
+              <h4 class="card-title">John Doe</h4>
+              <p class="card-text">Some example text.jhfgfsfdghjhgfgdrdtfgyhjkhgfdrsdtfygukh</p>
+              <a href="#" class="read">Read Me!</a>
             </div>
+          </div>
             
         </div>
     </body>
