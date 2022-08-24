@@ -206,3 +206,26 @@ exports.insertUserSubmittedNews = functions.https.onRequest((request, response) 
     }
     );
 });
+
+/* WARNING : DON'T USE THIS FUNCTIPON FOR PRODUCTION
+    You need to give this function a ReCaptcha protection, APP CHECKK and just security sake add Cloudflare too.
+*/
+exports.incrementLikesOnFirebase = functions.https.onRequest((request, response) => {
+    // Request parameters
+    let articleId = request.body.articleId;
+    if (articleId == null){
+        return response.status(400).send("Please fill out all the fields");
+    }
+    // Increment likes on firestore
+    db.collection('articles').doc(articleId).update({
+        likes: admin.firestore.FieldValue.increment(1),
+    }).then(() => {
+        functions.logger.info("DEV! Likes are incremented on firestore. News title: "+articles.title);
+        return response.status(200).send("Successfully added");
+    }
+    ).catch(err => {
+        functions.logger.error("DEV! Your code failed... Check out log: "+err);
+        return response.status(500).send("Sorry! Server is not available. <br> Detailed error log: "+err);
+    }
+    );
+});
