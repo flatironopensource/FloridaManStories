@@ -161,7 +161,7 @@ exports.getNewsLenghtFromFirestore = functions.https.onRequest((_request, respon
 // Won't work if there are no likes on some articles
 // NOTE: This will return whole collection of articles UNEDITED AND UNORDERED
 exports.listPopularNewsFromFirestore = functions.https.onRequest((_request, response) => {
-    db.collection("articles").orderBy("likes", "desc").limit(10).get().then(function(querySnapshot) {
+    db.collection("articles").orderBy("likes", "desc").orderBy("publishedAt", order).limit(10).get().then(function(querySnapshot) {
         let articles = [];
         querySnapshot.forEach(function(doc) {
             articles.push(doc);
@@ -170,4 +170,39 @@ exports.listPopularNewsFromFirestore = functions.https.onRequest((_request, resp
     }).catch(err => {
         return response.status(500).send("Sorry! Server is not available. <br> Detailed error log: "+err);
     });
+});
+
+exports.insertUserSubmittedNews = functions.https.onRequest((request, response) => {
+    // Request parameters
+    let title = request.body.title;
+    let description = request.body.description;
+    let content = request.body.content;
+    let author = request.body.author;
+    let url = request.body.url;
+    let urlToImage = request.body.urlToImage;
+    let publishedAt = request.body.publishedAt;
+    let likes = 0;
+    if (title == null || description == null || content == null || author == null || url == null || urlToImage == null || publishedAt == null){
+        return response.status(400).send("Please fill out all the fields");
+    }
+    // Insert article into firestore
+    db.collection('articles').add({
+        author: articles.author,
+        content: articles.content,
+        description: articles.description,
+        publishedAt: articles.publishedAt,
+        source: articles.source,
+        title: articles.title,
+        url: articles.url,
+        urlToImage: articles.urlToImage,
+        likes: 0,
+    }).then(() => {
+        functions.logger.info("DEV! New news are added to firestore. News title: "+articles.title);
+        return response.status(200).send("Successfully added");
+    }
+    ).catch(err => {
+        functions.logger.error("DEV! Your code failed... Check out log: "+err);
+        return response.status(500).send("Sorry! Server is not available. <br> Detailed error log: "+err);
+    }
+    );
 });
