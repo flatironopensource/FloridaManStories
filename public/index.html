@@ -49,6 +49,7 @@
                 }
                 }
                 .card {
+                    
                     width: 400px; 
                     display: flex
                 }
@@ -62,6 +63,12 @@
                     display: block;
                     text-align: center;
                 }
+                body{
+                  background-color: #222;
+                  color: #e6e6e6;
+                  border-color: #e6e6e6;
+                }
+                
             </style>
     </head>
     <body>
@@ -92,20 +99,35 @@
                         <div class="search"></div>
                     </div>
         </div>
-
-        <div style="padding-left:16px">
-            <h2>Your Daily Florida Man News:</h2>
+      <h2>Your Daily Florida Man News:</h2>
+      <div>
+      <h3 style="float:left">Latest</h3>
+      </div>
+        <div id="Latest Stories" style="float: left; padding-left:16px">
             <!--fetch and use forEach to place data into the html cards-->
             <!--intial code is here-->
-           <div class="card">
+          <div class="card">
             <img class="card-img-top" style="width:200px; height:150px" src="https://coduber.com/wp-content/uploads/2022/03/image-1-768x683.png?ezimgfmt=ng:webp/ngcb5" alt="Card image">
             <div class="card-body">
               <h4 class="card-title">John Doe</h4>
               <p class="card-text">Some example text.</p>
               <a href="#" class="read">I like this!</a>
             </div>
-          </div>
             
+          </div>
         </div>
-    </body>
+        <div id="Top Stories" style="float:right">
+          <div class="card">
+            
+            <div class="card-body">
+              <h4 class="card-title">John Doe</h4>
+              <p class="card-text">Some example text.</p>
+              <a href="#" class="read">I like this\!</a>
+            </div>
+            <img class="card-img-top" style="width:200px; height:150px" src="https://coduber.com/wp-content/uploads/2022/03/image-1-768x683.png?ezimgfmt=ng:webp/ngcb5" alt="Card image">
+          </div>
+        </div>
+            
+        
+        </body>
 </html>
