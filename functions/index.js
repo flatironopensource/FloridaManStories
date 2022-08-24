@@ -216,16 +216,15 @@ exports.incrementLikesOnFirebase = functions.https.onRequest((request, response)
     if (articleId == null){
         return response.status(400).send("Please fill out all the fields");
     }
+    console.log("articleId: "+articleId);
     // Increment likes on firestore
-    db.collection('articles').doc(articleId).update({
-        likes: admin.firestore.FieldValue.increment(1),
-    }).then(() => {
-        functions.logger.info("DEV! Likes are incremented on firestore. News title: "+articles.title);
+    try{
+        db.collection('articles').doc(articleId).update({
+            likes: FieldValue.increment(1)
+        });
         return response.status(200).send("Successfully added");
     }
-    ).catch(err => {
-        functions.logger.error("DEV! Your code failed... Check out log: "+err);
+    catch(err){
         return response.status(500).send("Sorry! Server is not available. <br> Detailed error log: "+err);
     }
-    );
 });
