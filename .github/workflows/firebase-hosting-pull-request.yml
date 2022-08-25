@@ -21,9 +21,9 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FLORIDA_MAN_STORIES }}'
           projectId: florida-man-stories
-      - name: Install Firebase 
-        run: cd functions/ && npm install 
-      - name:  Deploy to Firebase Functions
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only functions
+      # - name: Install Firebase 
+      #   run: cd functions/ && npm install 
+      # - name:  Deploy to Firebase Functions
+      #   uses: w9jds/firebase-action@master
+      #   with:
+      #     args: deploy --only functions

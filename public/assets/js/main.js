@@ -136,8 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
   .then(response => response.json())
   .then(data => {
     console.log(data);
-    // data.forEach(item => {
-    //   console.log(item.urlImage,item.titleNews,item.descOfNews,item.urlNews);
-    // });
+    data.forEach(item => {
+      console.log(item.urlImage,item.titleNews,item.descOfNews,item.urlNews);
+    });
   });
 });
