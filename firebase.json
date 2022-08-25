@@ -8,27 +8,27 @@
     ],
     "rewrites": [
       {    
-        "source": "/getnews",
+        "source": "/api/getnews",
         "function": "getNews",
         "region": "us-central1"
       },
       {
-        "source": "/getnewslenghtfromfirestore",
+        "source": "/api/getnewslenghtfromfirestore",
         "function": "getNewsLenghtFromFirestore",
         "region": "us-central1"
       },
       {
-        "source": "/incrementlikesonfirebase",
+        "source": "/api/incrementlikesonfirebase",
         "function": "incrementLikesOnFirebase",
         "region": "us-central1"
       },
       {
-        "source": "/listpopularnewsfromfirestore",
+        "source": "/api/listpopularnewsfromfirestore",
         "function": "listPopularNewsFromFirestore",
         "region": "us-central1"
       },
       {
-        "source": "/insertusersubmittednews",
+        "source": "/api/insertusersubmittednews",
         "function": "insertUserSubmittedNews",
         "region": "us-central1"
       },
