@@ -64,6 +64,12 @@
                   border-color: #e6e6e6; 
                   max-width: 540px;
                 }
+                .top-card{
+                  background-color: #222; 
+                  color: #e6e6e6; 
+                  border-color: #e6e6e6; 
+                  max-width: 540px;
+                }
                 
             </style>
     </head>
@@ -71,7 +77,7 @@
         <div class="topnav">
             <!-- Top Left Logo -->
             <a href="/">
-                <img height=30px src="./assets/img/nav_logo.png" alt="Norway">  
+                <img height=30px src="./assets/img/nav_logo.png" alt="Florida">  
                     <style>.logo-image{
                         width: 46px;
                         height: 46px;
@@ -125,7 +131,7 @@
             
             <div id="top-news" class="col-md-6">
               <h3>Top</h3>
-              <div class="card mb-3" style="max-width: 540px;">
+              <div class="card mb-3 top-card" style="max-width: 540px;">
                 <div class="row g-0">
                   <div class="col-md-4">
                     <img src="..." class="img-fluid rounded-start" alt="...">
@@ -190,18 +196,18 @@ fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/service
         document.querySelector("#weather").appendChild(weatherElement)
         
     }
-      fetch('https://us-central1-florida-man-stories.cloudfunctions.net/getNews')
-      .then(res => res.json)
-      .then(news => {
-        let newsCard = document.createElement()
+      // fetch('https://us-central1-florida-man-stories.cloudfunctions.net/getNews')
+      // .then(res => res.json)
+      // .then(news => {
+        let newsCard = document.createElement('div')
           newsCard.setAttribute("class", "card mb-3 latest-card")
         let newsImg = document.createElement('img')
           newsImg.setAttribute("class", "img-fluid rounded-start")
+          newsImg.src = "./assets/img/rainy/png"
         let latestNews = document.querySelector('#latest-news')    
-        newsImg.src = news[0]._fieldsProto.urlToImage.stringValue
         latestNews.append(newsImg)
-        console.log(news[0]._fieldsProto.urlToImage.stringValue)
-      })
+        console.log()
+      // })
 })}
         </script>
 </html>
