@@ -7,6 +7,31 @@
       "**/node_modules/**"
     ],
     "rewrites": [
+      {    
+        "source": "/getnews",
+        "function": "getNews",
+        "region": "us-central1"
+      },
+      {
+        "source": "/getnewslenghtfromfirestore",
+        "function": "getNewsLenghtFromFirestore",
+        "region": "us-central1"
+      },
+      {
+        "source": "/incrementlikesonfirebase",
+        "function": "incrementLikesOnFirebase",
+        "region": "us-central1"
+      },
+      {
+        "source": "/listpopularnewsfromfirestore",
+        "function": "listPopularNewsFromFirestore",
+        "region": "us-central1"
+      },
+      {
+        "source": "/insertusersubmittednews",
+        "function": "insertUserSubmittedNews",
+        "region": "us-central1"
+      },
       {
         "source": "**",
         "destination": "/index.html"
