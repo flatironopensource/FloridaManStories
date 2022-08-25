@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
             <style>
                 body {
@@ -48,21 +50,8 @@
                     border: 1px solid #ccc;
                 }
                 }
-                .card {
-                    
-                    width: 400px; 
-                    display: flex
-                }
-                .card-title{
-                    text-align: center;
-                }
-                .card-text{
-                    text-align: center;
-                }
-                .read{
-                    display: block;
-                    text-align: center;
-                }
+                
+                
                 body{
                   background-color: #222;
                   color: #e6e6e6;
@@ -93,41 +82,124 @@
                 <a href="#mostLiked">Most Liked</a>
                 <a href="#funnyNews">Funny News</a>
                 <a href="#politicalNews">Political News</a>
+                    <!--Weather-->
+                    <a href="#weather" id="weather"></a>
                     <!-- Search Bar -->
                     <div class="container">
                         <input type="text" placeholder="Search...">
                         <div class="search"></div>
                     </div>
         </div>
-      <h2>Your Daily Florida Man News:</h2>
-      <div>
-      <h3 style="float:left">Latest</h3>
-      </div>
-        <div id="Latest Stories" style="float: left; padding-left:16px">
-            <!--fetch and use forEach to place data into the html cards-->
-            <!--intial code is here-->
-          <div class="card">
-            <img class="card-img-top" style="width:200px; height:150px" src="https://coduber.com/wp-content/uploads/2022/03/image-1-768x683.png?ezimgfmt=ng:webp/ngcb5" alt="Card image">
-            <div class="card-body">
-              <h4 class="card-title">John Doe</h4>
-              <p class="card-text">Some example text.</p>
-              <a href="#" class="read">I like this!</a>
-            </div>
+      <h2 style="text-align: center">Your Daily Florida Man News</h2>
+      
+        
+        
             
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h3>Latest</h3>
+              <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="https://coduber.com/wp-content/uploads/2022/03/image-1-768x683.png?ezimgfmt=ng:webp/ngcb5" alt="Card image" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                      <button type="button" class="btn btn-outline-dark">Like</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-5">
+              <form class="small col-6 offset-3 mt-3">
+                <div class="mb-3">
+                  <label for="InputTitle1" class="form-label">Title</label>
+                  <input type="text" class="form-control" id="InputTitle1" aria-describedby="titleHelp">
+                  <div id="titleHelp" class="form-text"></div>
+                </div>
+                <div class="mb-3">
+                  <label for="InputDescription1" class="form-label">Description</label>
+                  <input type="text" class="form-control" id="InputDescription1">
+                </div>
+                <div class="mb-3">
+                  <label for="InputImage1" class="form-label">Image Url</label>
+                  <input type="text" class="form-control" id="InputImage1">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+            <div class="col">
+              <h3>Top</h3>
+              <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="..." class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                      <button type="button" class="btn btn-outline-dark">Like</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div id="Top Stories" style="float:right">
-          <div class="card">
-            
-            <div class="card-body">
-              <h4 class="card-title">John Doe</h4>
-              <p class="card-text">Some example text.</p>
-              <a href="#" class="read">I like this\!</a>
-            </div>
-            <img class="card-img-top" style="width:200px; height:150px" src="https://coduber.com/wp-content/uploads/2022/03/image-1-768x683.png?ezimgfmt=ng:webp/ngcb5" alt="Card image">
-          </div>
-        </div>
-            
         
         </body>
+        <script>
+          getWeather()
+
+function getWeather(){
+fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/new%20york?unitGroup=metric&include=current%2Cdays&key=TKNH3KX7YXMA7N4FRV5VUQP9H&contentType=json')
+.then(res => res.json())
+.then(data => {
+    // console.log(data.days[0].datetimeEpoch)
+    // let date = new Date(data.days[0].datetimeEpoch*1000)
+    // console.log(date)
+    // let hours = date.getHours();
+    // let min = date.getMinutes()
+    // console.log(min)
+    // console.log(typeof data.hourly)
+    // let num = 0
+    // for (let key of data.days.datetimeEpoch){
+        let now = new Date()
+        const weatherElement = document.createElement('div')
+        const weatherImg = document.createElement('img')
+        weatherImg.width = "25"
+        weatherImg.height = "25"
+    for (i = 0; i < data.days.length; i++){
+        const weatherDays = document.createElement('span')
+        let key = new Date(data.days[i].datetimeEpoch*1000)
+        let temp = data.days[i].temp
+        let tempMax = data.days[i].tempmax
+        let tempMin = data.days[i].tempmin
+        let sunCloudRain = data.days[i].icon
+        let nowDate = now.getDate()
+        let keyDate = key.getDate()
+        let eachLine = `${keyDate}${sunCloudRain}${tempMax}${tempMin}`
+        console.log(nowDate)
+        console.log(keyDate)
+        if ((nowDate == keyDate)){
+            weatherDays.append(`${temp}\u00B0 `)
+            weatherImg.src = "http://www.clipartbest.com/cliparts/aTq/xMy/aTqxMyknc.png"
+            weatherDays.append(weatherImg)
+
+        }
+        // weatherDays.append(eachLine)
+        weatherElement.appendChild(weatherDays)
+        document.querySelector("#weather").appendChild(weatherElement)
+        
+    }
+    // document.body.style.backgroundImage = 
+    
+})}
+        </script>
 </html>
+
