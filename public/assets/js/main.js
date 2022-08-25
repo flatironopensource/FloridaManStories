@@ -147,9 +147,9 @@ document.addEventListener("DOMContentLoaded", () => {
   fetch('https://floridamanstories.ml/api/listpopularnewsfromfirestore')
   .then(response => response.json())
   .then(data => {
-    console.log(data);
     data.forEach(item => {
-      console.log(item._fieldsProto.urlToImage.stringValue);
+      console.log(item);
+      // console.log(item._fieldsProto.urlToImage.stringValue);
     });
   });
 });
