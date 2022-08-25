@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
   .then(data => {
     console.log(data);
     data.forEach(item => {
-      console.log(item.urlImage,item.titleNews,item.descOfNews,item.urlNews);
+      console.log(item._fieldsProto.urlToImage,item._fieldsProto.title,item._fieldsProto.description,item._fieldsProto.shortUrl);
     });
   });
 });
