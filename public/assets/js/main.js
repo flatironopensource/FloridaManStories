@@ -1,6 +1,4 @@
 let latestButton = document.getElementById("latest-button")
-// latestButton.addEventListener()
-getWeather()
 
 function getWeather() {
   fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/new%20york?unitGroup=metric&include=current%2Cdays&key=TKNH3KX7YXMA7N4FRV5VUQP9H&contentType=json')
@@ -33,8 +31,7 @@ function getWeather() {
       }
     })
 }
-
-function addLatestNews() {
+function addLatestNews(urlImage,titleNews,descOfNews,urlNews) {
   const newsCard = document.createElement('div')
   newsCard.setAttribute("class", "card mb-3 latest-card")
   const row = document.createElement('div')
@@ -45,7 +42,7 @@ function addLatestNews() {
   row.append(col)
   const newsImg = document.createElement('img')
   newsImg.setAttribute("class", "img-fluid rounded-start")
-  newsImg.src = "./assets/img/rainy.png"
+  newsImg.src = urlImage
   col.append(newsImg)
   const nextDiv = document.createElement('div')
   nextDiv.setAttribute('class', 'col-md-8')
@@ -55,16 +52,16 @@ function addLatestNews() {
   nextDiv.append(body)
   let newsTitle = document.createElement('h5')
   newsTitle.setAttribute('class', 'card-title')
-  newsTitle.textContent = "Title"
+  newsTitle.textContent = titleNews
   body.append(newsTitle)
   let newsText = document.createElement('p')
   newsText.setAttribute('class', 'card-text')
-  newsText.textContent = "text here"
+  newsText.textContent = descOfNews
   body.append(newsText)
   const lastDiv = document.createElement('div')
   body.append(lastDiv)
   let readThis = document.createElement('a')
-  readThis.href = ""
+  readThis.href = urlNews
   readThis.textContent = "Content     "
   lastDiv.append(readThis)
   let likeButton = document.createElement('button')
@@ -79,7 +76,7 @@ function addLatestNews() {
   let latestNews = document.querySelector('#latest-news')
   latestNews.append(newsCard)
 }
-function addTopNews() {
+function addTopNews(urlImage,titleNews,descOfNews,urlNews) {
   const newsCard = document.createElement('div')
   newsCard.setAttribute("class", "card mb-3 top-card")
   const row = document.createElement('div')
@@ -90,7 +87,7 @@ function addTopNews() {
   row.append(col)
   const newsImg = document.createElement('img')
   newsImg.setAttribute("class", "img-fluid rounded-start")
-  newsImg.src = "./assets/img/rainy.png"
+  newsImg.src = urlImage
   col.append(newsImg)
   const nextDiv = document.createElement('div')
   nextDiv.setAttribute('class', 'col-md-8')
@@ -100,16 +97,16 @@ function addTopNews() {
   nextDiv.append(body)
   let newsTitle = document.createElement('h5')
   newsTitle.setAttribute('class', 'card-title')
-  newsTitle.textContent = "Title"
+  newsTitle.textContent = titleOfNews
   body.append(newsTitle)
   let newsText = document.createElement('p')
   newsText.setAttribute('class', 'card-text')
-  newsText.textContent = "text here"
+  newsText.textContent = descOfNews
   body.append(newsText)
   const lastDiv = document.createElement('div')
   body.append(lastDiv)
   let readThis = document.createElement('a')
-  readThis.href = ""
+  readThis.href = urlNews
   readThis.textContent = "Content"
   lastDiv.append(readThis)
   let likeButton = document.createElement('button')
@@ -121,7 +118,6 @@ function addTopNews() {
   let likeCounter = document.createElement('p')
   likeCounter.textContent = "Likes: "
   lastDiv.append(likeCounter)
-
   let topNews = document.querySelector('#top-news')
   topNews.append(newsCard)
 }
@@ -129,7 +125,19 @@ function addTopNews() {
 let allLikeButtons = document.querySelectorAll('.like-button')
 let latestLikes = document.querySelectorAll('latest-card')
 
-allLikeButtons.forEach(likeButton => {
-  likeButton.addEventListener('click',
-    e.target.setAttribute('class', 'btn btn-secondary btn-outline-light'))
-})
+// allLikeButtons.forEach(likeButton => {
+//   likeButton.addEventListener('click',
+//     e.target.setAttribute('class', 'btn btn-secondary btn-outline-light'))
+// })
+
+document.addEventListener("DOMContentLoaded", () => {
+  getWeather()
+  fetch('https://floridamanstories.ml/api/listpopularnewsfromfirestore')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    // data.forEach(item => {
+    //   console.log(item.urlImage,item.titleNews,item.descOfNews,item.urlNews);
+    // });
+  });
+});
