@@ -57,14 +57,21 @@
                   color: #e6e6e6;
                   border-color: #e6e6e6;
                 }
+
+                .latest-card{
+                  background-color: #222; 
+                  color: #e6e6e6; 
+                  border-color: #e6e6e6; 
+                  max-width: 540px;
+                }
                 
             </style>
     </head>
     <body>
         <div class="topnav">
             <!-- Top Left Logo -->
-            <a class="logo-image">
-                <img src="" class="w3-round" alt="Norway">  
+            <a href="/">
+                <img height=30px src="./assets/img/nav_logo.png" alt="Norway">  
                     <style>.logo-image{
                         width: 46px;
                         height: 46px;
@@ -73,9 +80,10 @@
                         margin-top: -6px;
                         }
                         </style>
+              <a class="navbar-brand" href="/">Florida Man Stories</a>
             </a>
+
                 <!-- Top Nav Tags -->
-                <a class="navbar-brand" href="/"></a>
                 <a href="#home">Home</a>
                 <a href="#latestNews">Latest News</a>
                 <a href="#topStories">Top Stories</a>
@@ -97,9 +105,9 @@
             
         <div class="container">
           <div class="row">
-            <div class="col">
+            <div id="latest-news" class="col-6">
               <h3>Latest</h3>
-              <div class="card mb-3" style="max-width: 540px;">
+              <div class="card mb-3 latest-card" >
                 <div class="row g-0">
                   <div class="col-md-4">
                     <img src="https://coduber.com/wp-content/uploads/2022/03/image-1-768x683.png?ezimgfmt=ng:webp/ngcb5" alt="Card image" class="img-fluid rounded-start" alt="...">
@@ -108,31 +116,14 @@
                     <div class="card-body">
                       <h5 class="card-title">Card title</h5>
                       <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <button type="button" class="btn btn-outline-dark">Like</button>
+                      <button type="button" id="latest-button" class="btn btn-danger btn-outline-light">Like</button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-5">
-              <form class="small col-6 offset-3 mt-3">
-                <div class="mb-3">
-                  <label for="InputTitle1" class="form-label">Title</label>
-                  <input type="text" class="form-control" id="InputTitle1" aria-describedby="titleHelp">
-                  <div id="titleHelp" class="form-text"></div>
-                </div>
-                <div class="mb-3">
-                  <label for="InputDescription1" class="form-label">Description</label>
-                  <input type="text" class="form-control" id="InputDescription1">
-                </div>
-                <div class="mb-3">
-                  <label for="InputImage1" class="form-label">Image Url</label>
-                  <input type="text" class="form-control" id="InputImage1">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-            </div>
-            <div class="col">
+            
+            <div id="top-news" class="col-md-6">
               <h3>Top</h3>
               <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
@@ -143,7 +134,7 @@
                     <div class="card-body">
                       <h5 class="card-title">Card title</h5>
                       <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <button type="button" class="btn btn-outline-dark">Like</button>
+                      <button type="button" id="top-button" class="btn btn-outline-dark">Like</button>
                     </div>
                   </div>
                 </div>
@@ -154,6 +145,8 @@
         
         </body>
         <script>
+          let latestButton = document.getElementById("latest-button")
+            // latestButton.addEventListener()
           getWeather()
 
 function getWeather(){
@@ -188,7 +181,7 @@ fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/service
         console.log(keyDate)
         if ((nowDate == keyDate)){
             weatherDays.append(`${temp}\u00B0 `)
-            weatherImg.src = "http://www.clipartbest.com/cliparts/aTq/xMy/aTqxMyknc.png"
+            weatherImg.src = "./assets/img/rainy.png"
             weatherDays.append(weatherImg)
 
         }
@@ -197,8 +190,18 @@ fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/service
         document.querySelector("#weather").appendChild(weatherElement)
         
     }
-    // document.body.style.backgroundImage = 
-    
+      fetch('https://us-central1-florida-man-stories.cloudfunctions.net/getNews')
+      .then(res => res.json)
+      .then(news => {
+        let newsCard = document.createElement()
+          newsCard.setAttribute("class", "card mb-3 latest-card")
+        let newsImg = document.createElement('img')
+          newsImg.setAttribute("class", "img-fluid rounded-start")
+        let latestNews = document.querySelector('#latest-news')    
+        newsImg.src = news[0]._fieldsProto.urlToImage.stringValue
+        latestNews.append(newsImg)
+        console.log(news[0]._fieldsProto.urlToImage.stringValue)
+      })
 })}
         </script>
 </html>
