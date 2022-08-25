@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
   .then(response => response.json())
   .then(data => {
     data.forEach(item => {
-      console.log(item);
+      console.log(item._fieldsProto);
       // console.log(item._fieldsProto.urlToImage.stringValue);
     });
   });
