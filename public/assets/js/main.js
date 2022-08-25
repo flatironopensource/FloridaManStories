@@ -31,7 +31,8 @@ function getWeather() {
       }
     })
 }
-function addLatestNews(urlImage,titleNews,descOfNews,urlNews) {
+
+function addLatestNews(one, two, three, four) {
   const newsCard = document.createElement('div')
   newsCard.setAttribute("class", "card mb-3 latest-card")
   const row = document.createElement('div')
@@ -42,7 +43,7 @@ function addLatestNews(urlImage,titleNews,descOfNews,urlNews) {
   row.append(col)
   const newsImg = document.createElement('img')
   newsImg.setAttribute("class", "img-fluid rounded-start")
-  newsImg.src = urlImage
+  newsImg.src = one
   col.append(newsImg)
   const nextDiv = document.createElement('div')
   nextDiv.setAttribute('class', 'col-md-8')
@@ -52,16 +53,16 @@ function addLatestNews(urlImage,titleNews,descOfNews,urlNews) {
   nextDiv.append(body)
   let newsTitle = document.createElement('h5')
   newsTitle.setAttribute('class', 'card-title')
-  newsTitle.textContent = titleNews
+  newsTitle.textContent = two
   body.append(newsTitle)
   let newsText = document.createElement('p')
   newsText.setAttribute('class', 'card-text')
-  newsText.textContent = descOfNews
+  newsText.textContent = three
   body.append(newsText)
   const lastDiv = document.createElement('div')
   body.append(lastDiv)
   let readThis = document.createElement('a')
-  readThis.href = urlNews
+  readThis.href = four
   readThis.textContent = "Content     "
   lastDiv.append(readThis)
   let likeButton = document.createElement('button')
@@ -76,7 +77,7 @@ function addLatestNews(urlImage,titleNews,descOfNews,urlNews) {
   let latestNews = document.querySelector('#latest-news')
   latestNews.append(newsCard)
 }
-function addTopNews(urlImage,titleNews,descOfNews,urlNews) {
+function addTopNews(one, two, three, four) {
   const newsCard = document.createElement('div')
   newsCard.setAttribute("class", "card mb-3 top-card")
   const row = document.createElement('div')
@@ -87,7 +88,7 @@ function addTopNews(urlImage,titleNews,descOfNews,urlNews) {
   row.append(col)
   const newsImg = document.createElement('img')
   newsImg.setAttribute("class", "img-fluid rounded-start")
-  newsImg.src = urlImage
+  newsImg.src = one
   col.append(newsImg)
   const nextDiv = document.createElement('div')
   nextDiv.setAttribute('class', 'col-md-8')
@@ -97,16 +98,16 @@ function addTopNews(urlImage,titleNews,descOfNews,urlNews) {
   nextDiv.append(body)
   let newsTitle = document.createElement('h5')
   newsTitle.setAttribute('class', 'card-title')
-  newsTitle.textContent = titleOfNews
+  newsTitle.textContent = two
   body.append(newsTitle)
   let newsText = document.createElement('p')
   newsText.setAttribute('class', 'card-text')
-  newsText.textContent = descOfNews
+  newsText.textContent = three
   body.append(newsText)
   const lastDiv = document.createElement('div')
   body.append(lastDiv)
   let readThis = document.createElement('a')
-  readThis.href = urlNews
+  readThis.href = four
   readThis.textContent = "Content"
   lastDiv.append(readThis)
   let likeButton = document.createElement('button')
@@ -121,6 +122,17 @@ function addTopNews(urlImage,titleNews,descOfNews,urlNews) {
   let topNews = document.querySelector('#top-news')
   topNews.append(newsCard)
 }
+
+submitButton = document.getElementById('submit-form')
+submitButton.addEventListener('submit', (e) =>{
+  e.preventDefault()
+  console.log('hello')
+  let one = document.getElementById('image-url').value
+  let two = document.getElementById('title').value
+  let three = document.getElementById('description').value
+  let four = document.getElementById('url').value
+  // addTopNews(one, two, three, four)
+})
 
 let allLikeButtons = document.querySelectorAll('.like-button')
 let latestLikes = document.querySelectorAll('latest-card')
@@ -137,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
   .then(data => {
     console.log(data);
     data.forEach(item => {
-      console.log(item._fieldsProto.urlToImage,item._fieldsProto.title,item._fieldsProto.description,item._fieldsProto.shortUrl);
+      addTopNews(item._fieldsProto.stringValue.urlToImage,item._fieldsProto.stringValue.title,item._fieldsProto.stringValue.description,item._fieldsProto.stringValue.shortUrl);
     });
   });
 });
