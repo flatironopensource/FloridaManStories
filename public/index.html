@@ -204,6 +204,7 @@ fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/service
         let newsImg = document.createElement('img')
           newsImg.setAttribute("class", "img-fluid rounded-start")
           newsImg.src = "./assets/img/rainy/png"
+        let newsTitle = document.createElement('div')
         let latestNews = document.querySelector('#latest-news')    
         latestNews.append(newsImg)
         console.log()
