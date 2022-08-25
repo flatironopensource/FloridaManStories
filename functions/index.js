@@ -161,7 +161,7 @@ exports.getNewsLenghtFromFirestore = functions.https.onRequest((_request, respon
 // Won't work if there are no likes on some articles
 // NOTE: This will return whole collection of articles UNEDITED AND UNORDERED
 exports.listPopularNewsFromFirestore = functions.https.onRequest((_request, response) => {
-    db.collection("articles").orderBy("likes", "desc").orderBy("publishedAt", order).limit(10).get().then(function(querySnapshot) {
+    db.collection("articles").orderBy("likes", "desc").orderBy("publishedAt", "desc").limit(10).get().then(function(querySnapshot) {
         let articles = [];
         querySnapshot.forEach(function(doc) {
             articles.push(doc);
