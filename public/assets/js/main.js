@@ -108,6 +108,7 @@ function addTopNews(one, two, three, four) {
   body.append(lastDiv)
   let readThis = document.createElement('a')
   readThis.href = four
+  readThis.target = '_blank';
   readThis.textContent = "Content"
   lastDiv.append(readThis)
   let likeButton = document.createElement('button')
@@ -149,6 +150,13 @@ document.addEventListener("DOMContentLoaded", () => {
   .then(data => {
     data.forEach(item => {
       addTopNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue);
+    });
+  });
+  fetch('https://floridamanstories.ml/api/getNews')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach(item => {
+      addLatestNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue);
     });
   });
 });
