@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
       addTopNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue);
     });
   });
-  fetch('https://floridamanstories.ml/api/getNews')
+  fetch('https://floridamanstories.ml/api/getnews')
   .then(response => response.json())
   .then(data => {
     data.forEach(item => {
