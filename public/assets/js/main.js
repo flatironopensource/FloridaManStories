@@ -289,7 +289,7 @@ window.addEventListener("keydown", function(){
     .then(data => {
       lastNews+=data.length
       data.forEach(item => {
-        console.log(item);
+        lastNewsId=item._ref._path.segments[1];
         addAllNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
       });
     });
