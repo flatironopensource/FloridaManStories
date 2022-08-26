@@ -71,13 +71,19 @@ function addLatestNews(one, two, three, four) {
   likeButton.style.float = 'right'
   likeButton.setAttribute('type', 'button')
   likeButton.setAttribute('class', 'like-button btn btn-danger btn-outline-light')
+  likeButton.setAttribute('onclick', 'likeNews('+likes+')')
   lastDiv.append(likeButton)
   let likeCounter = document.createElement('p')
-  likeCounter.textContent = "Likes: "
+  likeCounter.textContent = "Likes: "+likes
   lastDiv.append(likeCounter)
   let latestNews = document.querySelector('#latest-news')
   latestNews.append(newsCard)
 }
+
+function likeNews(id){
+  fetch('https://floridamanstories.ml/api/incrementlikesonfirebase')
+}
+
 function addTopNews(one, two, three, four) {
   const newsCard = document.createElement('div')
   newsCard.setAttribute("class", "card mb-3 top-card")
@@ -120,13 +126,13 @@ function addTopNews(one, two, three, four) {
   likeButton.setAttribute('class', 'like-button btn btn-danger btn-outline-light')
   lastDiv.append(likeButton)
   let likeCounter = document.createElement('p')
-  likeCounter.textContent = "Likes: "
+  likeCounter.textContent = "Likes: "+likes
   lastDiv.append(likeCounter)
   let topNews = document.querySelector('#top-news')
   topNews.append(newsCard)
 }
 
-submitButton = document.getElementById('submit-form')
+let submitButton = document.getElementById('submit-form')
 submitButton.addEventListener('submit', (e) =>{
   e.preventDefault()
   console.log('hello')
@@ -140,17 +146,13 @@ submitButton.addEventListener('submit', (e) =>{
 let allLikeButtons = document.querySelectorAll('.like-button')
 let latestLikes = document.querySelectorAll('latest-card')
 
-// allLikeButtons.forEach(likeButton => {
-//   likeButton.addEventListener('click',
-//     e.target.setAttribute('class', 'btn btn-secondary btn-outline-light'))
-// })
-
 document.addEventListener("DOMContentLoaded", () => {
   getWeather()
   fetch('https://floridamanstories.ml/api/listpopularnewsfromfirestore')
   .then(response => response.json())
   .then(data => {
     data.forEach(item => {
+      console.log(item);
       addTopNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue);
     });
   });
