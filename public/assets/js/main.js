@@ -270,7 +270,7 @@ window.addEventListener("scroll", function(){ // or window.addEventListener("scr
     setTimeout(function(){},  50000);
    }
    if (st > lastScrollTop){
-    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+    if ((window.innerHeight + st) >= document.body.scrollHeight) {
       // you're at the bottom of the page
       console.log('Scroll down');
 
