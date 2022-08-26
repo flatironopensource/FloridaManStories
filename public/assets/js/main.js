@@ -154,14 +154,14 @@ document.addEventListener("DOMContentLoaded", () => {
   .then(data => {
     data.forEach(item => {
       console.log(item);
-      addTopNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._fieldsProto.likes.integerValue,item._ref._path.segments[1]);
+      addTopNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
     });
   });
   fetch('https://floridamanstories.ml/api/getnews')
   .then(response => response.json())
   .then(data => {
     data.forEach(item => {
-      addLatestNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._fieldsProto.likes.integerValue,item._ref._path.segments[1]);
+      addLatestNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
     });
   });
 });
