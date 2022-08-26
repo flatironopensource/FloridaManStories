@@ -261,10 +261,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-let lastScrollTop = 0;
+let lastScrollTop = 1;
 
-// element should be replaced with the actual target element on which you have applied scroll, use window in case of no target element.
-window.addEventListener("scroll", function(){ // or window.addEventListener("scroll"....
+// element should be replaced with the actual target element on which you have applied scroll, use window in case of no target element. Also tineout is the time in milliseconds after which the function will be called.
+window.addEventListener("scroll", setTimeout(function(){ // or window.addEventListener("scroll"....
    let st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
    if (st > lastScrollTop){
     console.log('Scroll down');
@@ -289,4 +289,4 @@ window.addEventListener("scroll", function(){ // or window.addEventListener("scr
       console.log('Scroll up');
    }
    lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-}, false);
+}, false),10000);
