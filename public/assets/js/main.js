@@ -221,6 +221,10 @@ submitButton.addEventListener('submit', (e) =>{
 let allLikeButtons = document.querySelectorAll('.like-button')
 let latestLikes = document.querySelectorAll('latest-card')
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function likeNews(id){
   fetch("https://floridamanstories.ml/api/incrementlikesonfirebase",
   {
@@ -270,28 +274,26 @@ window.addEventListener("scroll", function(){ // or window.addEventListener("scr
     setTimeout(function(){},  50000);
    }
    if (st > lastScrollTop){
-    if ((window.innerHeight + st) >= document.body.scrollHeight) {
-      // you're at the bottom of the page
-      console.log('Scroll down');
-
-      fetch('https://floridamanstories.ml/api/getnewslromlastsentnews', {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify({
-          lastNews : lastNewsId
-        })
-      })
-      .then(response => response.json())
-      .then(data => {
-        lastNews+=data.length
-        data.forEach(item => {
-          addAllNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
-        });
+    console.log('Scroll down');
+    fetch('https://floridamanstories.ml/api/getnewslromlastsentnews', {
+     headers: {
+       'Accept': 'application/json',
+       'Content-Type': 'application/json'
+       },
+       method: "POST",
+       body: JSON.stringify({
+         lastNews : lastNewsId
+       })
+    })
+    .then(response => response.json())
+    .then(data => {
+      lastNews+=data.length
+      data.forEach(item => {
+        console.log(item);
+        addAllNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
       });
-    }
+    });
+    await sleep(10 * 1000);
    } else {
       console.log('Scroll up');
    }
