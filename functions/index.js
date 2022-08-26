@@ -113,7 +113,7 @@ exports.addNewNewsToFirestore = functions.pubsub.schedule('every 20 minutes').ti
 exports.getNewsFromLastSentNews = functions.https.onRequest((request, response) => {
     const lastNews = request.body.lastNews;
     // Get all news from the firestore
-    db.collection('articles').orderBy('publishedAt', 'desc').limit(20).startAt(lastNews).get().then((snapshot) => {
+    db.collection('articles').orderBy('publishedAt', 'desc').startAt(lastNews).limit(20).get().then((snapshot) => {
         if (snapshot.empty) {
             functions.logger.warn("WARNING: There is no news in the firestore!");
             return response.status(200).send("There is no news in the firestore!");
