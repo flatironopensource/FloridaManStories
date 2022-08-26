@@ -1,5 +1,6 @@
 let latestButton = document.getElementById("latest-button");
 let lastNews = 10;
+let lastNewsId = "";
 function getWeather() {
   fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/new%20york?unitGroup=metric&include=current%2Cdays&key=TKNH3KX7YXMA7N4FRV5VUQP9H&contentType=json')
     .then(res => res.json())
@@ -75,7 +76,6 @@ function addLatestNews(one, two, three, four, id, likes) {
   likeButton.setAttribute('value', id)
   lastDiv.append(likeButton)
   let likeCounter = document.createElement('p')
-  likeCounter.textContent = "Likes: "+likes
   lastDiv.append(likeCounter)
   let latestNews = document.querySelector('#latest-news')
   latestNews.append(newsCard)
@@ -126,7 +126,7 @@ function addAllNews(one, two, three, four, id, likes) {
   let likeCounter = document.createElement('p')
   likeCounter.textContent = "Likes: "+likes
   lastDiv.append(likeCounter)
-  let latestNews = document.querySelector('#allNews')
+  let latestNews = document.getElementById('allNews')
   latestNews.append(newsCard)
 }
 
@@ -171,7 +171,6 @@ function addTopNews(one, two, three, four, id, likes) {
   likeButton.setAttribute('type', 'button')
   likeButton.setAttribute('class', 'like-button btn btn-danger btn-outline-light')
   likeButton.setAttribute('onclick', 'likeNews("'+id+'")')
-  likeButton.setAttribute('value', id)
   lastDiv.append(likeButton)
   let likeCounter = document.createElement('p')
   likeCounter.textContent = "Likes: "+likes
@@ -229,6 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
   .then(data => {
     data.forEach(item => {
       addLatestNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
+      lastNewsId=item._ref._path.segments[1]
     });
   });
   fetch('https://floridamanstories.ml/api/getnewslromlastsentnews', {
@@ -238,7 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       method: "POST",
       body: JSON.stringify({
-        lastNews : document.querySelector("#latest-news > div:nth-child(11) > div > div.col-md-8 > div > div > button").getAttribute("value")
+        lastNews : lastNewsId
       })
   })
   .then(response => response.json())
