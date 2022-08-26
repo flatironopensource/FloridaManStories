@@ -261,21 +261,22 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-window.addEvent('scroll', function(event) {
-  if (event.originalEvent.wheelDelta >= 0) {
-      console.log('Scroll up');
-  }
-  else {
+let lastScrollTop = 0;
+
+// element should be replaced with the actual target element on which you have applied scroll, use window in case of no target element.
+windows.addEventListener("scroll", function(){ // or window.addEventListener("scroll"....
+   let st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+   if (st > lastScrollTop){
     console.log('Scroll down');
-     fetch('https://floridamanstories.ml/api/getnewslromlastsentnews', {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify({
-          lastNews : lastNewsId
-        })
+    fetch('https://floridamanstories.ml/api/getnewslromlastsentnews', {
+     headers: {
+       'Accept': 'application/json',
+       'Content-Type': 'application/json'
+       },
+       method: "POST",
+       body: JSON.stringify({
+         lastNews : lastNewsId
+       })
     })
     .then(response => response.json())
     .then(data => {
@@ -284,5 +285,8 @@ window.addEvent('scroll', function(event) {
         addAllNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
       });
     });
-  }
-});
+   } else {
+      console.log('Scroll up');
+   }
+   lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+}, false);
