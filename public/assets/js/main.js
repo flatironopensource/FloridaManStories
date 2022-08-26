@@ -266,25 +266,32 @@ let lastScrollTop = 1;
 // element should be replaced with the actual target element on which you have applied scroll, use window in case of no target element. Also tineout is the time in milliseconds after which the function will be called.
 window.addEventListener("scroll", function(){ // or window.addEventListener("scroll"....
    let st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+   if(st%2==0){
+    setTimeout(function(){},  50000);
+   }
    if (st > lastScrollTop){
-    console.log('Scroll down');
-    fetch('https://floridamanstories.ml/api/getnewslromlastsentnews', {
-     headers: {
-       'Accept': 'application/json',
-       'Content-Type': 'application/json'
-       },
-       method: "POST",
-       body: JSON.stringify({
-         lastNews : lastNewsId
-       })
-    })
-    .then(response => response.json())
-    .then(data => {
-      lastNews+=data.length
-      data.forEach(item => {
-        addAllNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
+    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+      // you're at the bottom of the page
+      console.log('Scroll down');
+
+      fetch('https://floridamanstories.ml/api/getnewslromlastsentnews', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({
+          lastNews : lastNewsId
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        lastNews+=data.length
+        data.forEach(item => {
+          addAllNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
+        });
       });
-    });
+    }
    } else {
       console.log('Scroll up');
    }
