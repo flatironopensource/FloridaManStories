@@ -32,7 +32,7 @@ function getWeather() {
     })
 }
 
-function addLatestNews(one, two, three, four) {
+function addLatestNews(one, two, three, four, id, likes) {
   const newsCard = document.createElement('div')
   newsCard.setAttribute("class", "card mb-3 latest-card")
   const row = document.createElement('div')
@@ -71,7 +71,7 @@ function addLatestNews(one, two, three, four) {
   likeButton.style.float = 'right'
   likeButton.setAttribute('type', 'button')
   likeButton.setAttribute('class', 'like-button btn btn-danger btn-outline-light')
-  likeButton.setAttribute('onclick', 'likeNews('+likes+')')
+  likeButton.setAttribute('onclick', 'likeNews('+id+')')
   lastDiv.append(likeButton)
   let likeCounter = document.createElement('p')
   likeCounter.textContent = "Likes: "+likes
@@ -84,7 +84,7 @@ function likeNews(id){
   fetch('https://floridamanstories.ml/api/incrementlikesonfirebase')
 }
 
-function addTopNews(one, two, three, four) {
+function addTopNews(one, two, three, four, id, likes) {
   const newsCard = document.createElement('div')
   newsCard.setAttribute("class", "card mb-3 top-card")
   const row = document.createElement('div')
@@ -124,6 +124,7 @@ function addTopNews(one, two, three, four) {
   likeButton.style.float = 'right'
   likeButton.setAttribute('type', 'button')
   likeButton.setAttribute('class', 'like-button btn btn-danger btn-outline-light')
+  likeButton.setAttribute('onclick', 'likeNews('+id+')')
   lastDiv.append(likeButton)
   let likeCounter = document.createElement('p')
   likeCounter.textContent = "Likes: "+likes
@@ -153,14 +154,14 @@ document.addEventListener("DOMContentLoaded", () => {
   .then(data => {
     data.forEach(item => {
       console.log(item);
-      addTopNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue);
+      addTopNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._fieldsProto.likes.integerValue,item._ref._path.segments[1]);
     });
   });
   fetch('https://floridamanstories.ml/api/getnews')
   .then(response => response.json())
   .then(data => {
     data.forEach(item => {
-      addLatestNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue);
+      addLatestNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._fieldsProto.likes.integerValue,item._ref._path.segments[1]);
     });
   });
 });
