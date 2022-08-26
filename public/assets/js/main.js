@@ -72,6 +72,7 @@ function addLatestNews(one, two, three, four, id, likes) {
   likeButton.setAttribute('type', 'button')
   likeButton.setAttribute('class', 'like-button btn btn-danger btn-outline-light')
   likeButton.setAttribute('onclick', 'likeNews("'+id+'")')
+  likeButton.setAttribute('value', id)
   lastDiv.append(likeButton)
   let likeCounter = document.createElement('p')
   likeCounter.textContent = "Likes: "+likes
@@ -125,7 +126,7 @@ function addAllNews(one, two, three, four, id, likes) {
   let likeCounter = document.createElement('p')
   likeCounter.textContent = "Likes: "+likes
   lastDiv.append(likeCounter)
-  let latestNews = document.querySelector('#latest-news')
+  let latestNews = document.querySelector('#allNews')
   latestNews.append(newsCard)
 }
 
