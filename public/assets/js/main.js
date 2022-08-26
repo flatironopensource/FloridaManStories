@@ -231,6 +231,13 @@ document.addEventListener("DOMContentLoaded", () => {
       lastNewsId=item._ref._path.segments[1]
     });
   });
+
+
+});
+
+let allNews = document.querySelectorAll('allNews')
+allNews.onscroll = (event) => {
+  console.log('Scrolling...');  
   fetch('https://floridamanstories.ml/api/getnewslromlastsentnews', {
     headers: {
       'Accept': 'application/json',
@@ -248,9 +255,4 @@ document.addEventListener("DOMContentLoaded", () => {
       addAllNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
     });
   });
-});
-
-let allNews = document.querySelectorAll('allNews')
-allNews.onscroll = (event) => {
-  console.log('Scrolling...');  
 };
