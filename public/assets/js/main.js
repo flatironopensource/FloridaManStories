@@ -182,13 +182,41 @@ function addTopNews(one, two, three, four, id, likes) {
 let submitButton = document.getElementById('submit-form')
 submitButton.addEventListener('submit', (e) =>{
   e.preventDefault()
-  console.log('hello')
-  let one = document.getElementById('image-url').value
-  let two = document.getElementById('title').value
-  let three = document.getElementById('description').value
-  let four = document.getElementById('url').value
-  // addTopNews(one, two, three, four)
-})
+  let title = document.getElementById('title').value
+  let description = document.getElementById('description').value
+  let content = document.getElementById('content').value
+  let source = "Florida Man Stories";
+  let author = document.getElementById('author').value
+  let url = document.getElementById('url').value
+  let urlToImage = document.getElementById('image-url').value
+  let publishedAt = document.getElementById('published-at').value
+
+  fetch('https://floridamanstories.ml/api/insertusersubmittednews',
+  {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      title: title,
+      description: description,
+      content: content,
+      source: source,
+      author: author,
+      url: url,
+      urlToImage: urlToImage,
+      publishedAt: publishedAt
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log(data)
+    if(data.success){
+      alert('News Submitted')
+      window.location.href = '/'
+    }
+  })
+});
 
 let allLikeButtons = document.querySelectorAll('.like-button')
 let latestLikes = document.querySelectorAll('latest-card')
@@ -231,8 +259,6 @@ document.addEventListener("DOMContentLoaded", () => {
       lastNewsId=item._ref._path.segments[1]
     });
   });
-
-
 });
 
 $(window).bind('mousewheel', function(event) {
