@@ -268,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
 let lastScrollTop = 1;
 
 // element should be replaced with the actual target element on which you have applied scroll, use window in case of no target element. Also tineout is the time in milliseconds after which the function will be called.
-window.addEventListener("scroll", function(){
+window.addEventListener("keydown", function(){
    let st = window.pageYOffset || document.documentElement.scrollTop; 
    if(st%2==0){
     setTimeout(function(){},  50000);
@@ -293,9 +293,8 @@ window.addEventListener("scroll", function(){
         addAllNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
       });
     });
-    // await sleep(10 * 1000);
    } else {
       console.log('Scroll up');
    }
    lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-}, 10000);
+}, false);
