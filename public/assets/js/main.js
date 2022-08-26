@@ -221,8 +221,8 @@ submitButton.addEventListener('submit', (e) =>{
 let allLikeButtons = document.querySelectorAll('.like-button')
 let latestLikes = document.querySelectorAll('latest-card')
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
 }
 
 function likeNews(id){
@@ -268,8 +268,8 @@ document.addEventListener("DOMContentLoaded", () => {
 let lastScrollTop = 1;
 
 // element should be replaced with the actual target element on which you have applied scroll, use window in case of no target element. Also tineout is the time in milliseconds after which the function will be called.
-window.addEventListener("scroll", function(){ // or window.addEventListener("scroll"....
-   let st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+window.addEventListener("scroll", function(){
+   let st = window.pageYOffset || document.documentElement.scrollTop; 
    if(st%2==0){
     setTimeout(function(){},  50000);
    }
@@ -293,9 +293,9 @@ window.addEventListener("scroll", function(){ // or window.addEventListener("scr
         addAllNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
       });
     });
-    await sleep(10 * 1000);
+    // await sleep(10 * 1000);
    } else {
       console.log('Scroll up');
    }
    lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-}, false);
+}, 10000);
