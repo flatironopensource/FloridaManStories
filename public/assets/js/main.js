@@ -84,7 +84,7 @@ function addLatestNews(one, two, three, four, id, likes) {
 function addAllNews(one, two, three, four, id, likes) {
   const newsCard = document.createElement('div')
   newsCard.setAttribute("class", "card mb-3 latest-card")
-  newsCard.setAttribute("style", "width: 100%;")
+  newsCard.setAttribute("style", "width: 100%; max-width: 100%;")
   const row = document.createElement('div')
   row.setAttribute("class", "row g-0")
   newsCard.append(row)
@@ -93,7 +93,7 @@ function addAllNews(one, two, three, four, id, likes) {
   row.append(col)
   const newsImg = document.createElement('img')
   newsImg.setAttribute("class", "img-fluid rounded-start")
-  newsImg.setAttribute("style", "height: 100%")
+  newsImg.setAttribute("style", "height: 100;")
   newsImg.src = one
   col.append(newsImg)
   const nextDiv = document.createElement('div')
