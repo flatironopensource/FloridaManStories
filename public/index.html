@@ -12,6 +12,10 @@
     crossorigin="anonymous"></script>
   <link rel="manifest" href="./site.webmanifest">
   <link rel="shortcut icon" href="./assets/img/favicon.ico">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/typesense-docsearch.js@1/dist/cdn/docsearch.min.css"
+  />
 </head>
 
 <body>
@@ -24,10 +28,12 @@
 
     <!-- Top Nav Tags -->
     <a href="#latestNews">Latest News</a>
-    <a href="#topStories">Top Stories</a>
     <a href="#mostLiked">Most Liked</a>
     <!--Weather-->
     <a href="#weather" id="weather"></a>
+    <!-- SearchBar -->
+    <input type="search" id="searchbar">
+    <!-- Add News -->
     <button type="button" class="btn btn-outline-success my-2 my-sm-0" style="float:right;" data-bs-toggle="modal" data-bs-target="#addNewsModal">
       Submit News
     </button>
@@ -96,5 +102,6 @@
   </div>
 
   <script src="./assets/js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typesense-docsearch.js@1/dist/cdn/docsearch.min.js"></script>
 </body>
 </html>

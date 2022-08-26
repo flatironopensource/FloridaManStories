@@ -1,4 +1,17 @@
-let latestButton = document.getElementById("latest-button")
+let latestButton = document.getElementById("latest-button");
+
+docsearch({
+  inputSelector: '#searchbar',
+  typesenseCollectionName: 'articles', // Should match the collection name you mention in the docsearch scraper config.js
+  typesenseServerConfig: { 
+    nodes: [{
+      host: 'm6nhfae39ik8syzdp-1.a1.typesense.net', // For Typesense Cloud use xxx.a1.typesense.net
+      port: '443',      // For Typesense Cloud use 443
+      protocol: 'https'   // For Typesense Cloud use https
+    }],
+    apiKey: 'Z1h2967xpGrgJeavmbQTp4Jb9T7SIy23'
+  }
+});
 
 function getWeather() {
   fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/new%20york?unitGroup=metric&include=current%2Cdays&key=TKNH3KX7YXMA7N4FRV5VUQP9H&contentType=json')
@@ -71,7 +84,7 @@ function addLatestNews(one, two, three, four, id, likes) {
   likeButton.style.float = 'right'
   likeButton.setAttribute('type', 'button')
   likeButton.setAttribute('class', 'like-button btn btn-danger btn-outline-light')
-  likeButton.setAttribute('onclick', 'likeNews('+id+')')
+  likeButton.setAttribute('onclick', 'likeNews("'+id+'")')
   lastDiv.append(likeButton)
   let likeCounter = document.createElement('p')
   likeCounter.textContent = "Likes: "+likes
@@ -79,8 +92,6 @@ function addLatestNews(one, two, three, four, id, likes) {
   let latestNews = document.querySelector('#latest-news')
   latestNews.append(newsCard)
 }
-
-
 
 function addTopNews(one, two, three, four, id, likes) {
   const newsCard = document.createElement('div')
@@ -122,7 +133,7 @@ function addTopNews(one, two, three, four, id, likes) {
   likeButton.style.float = 'right'
   likeButton.setAttribute('type', 'button')
   likeButton.setAttribute('class', 'like-button btn btn-danger btn-outline-light')
-  likeButton.setAttribute('onclick', 'likeNews('+id+')')
+  likeButton.setAttribute('onclick', 'likeNews("'+id+'")')
   lastDiv.append(likeButton)
   let likeCounter = document.createElement('p')
   likeCounter.textContent = "Likes: "+likes
@@ -157,7 +168,12 @@ function likeNews(id){
          articleId : id
       })
   })
-  .then(function(res){ console.log(res) })
+  .then(function(res){ 
+    if(res.status === 200){
+      console.log("success")
+      window.location.reload()
+    }
+   })
   .catch(function(res){ console.log(res) })
 }
 
