@@ -1,5 +1,5 @@
 let latestButton = document.getElementById("latest-button");
-
+let lastNews = 10;
 function getWeather() {
   fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/new%20york?unitGroup=metric&include=current%2Cdays&key=TKNH3KX7YXMA7N4FRV5VUQP9H&contentType=json')
     .then(res => res.json())
@@ -33,6 +33,55 @@ function getWeather() {
 }
 
 function addLatestNews(one, two, three, four, id, likes) {
+  const newsCard = document.createElement('div')
+  newsCard.setAttribute("class", "card mb-3 latest-card")
+  newsCard.setAttribute("style", "max-width: 100%;")
+  const row = document.createElement('div')
+  row.setAttribute("class", "row g-0")
+  newsCard.append(row)
+  const col = document.createElement('div')
+  col.setAttribute("class", "col-md-4")
+  row.append(col)
+  const newsImg = document.createElement('img')
+  newsImg.setAttribute("class", "img-fluid rounded-start")
+  newsImg.setAttribute("style", "height: 100%")
+  newsImg.src = one
+  col.append(newsImg)
+  const nextDiv = document.createElement('div')
+  nextDiv.setAttribute('class', 'col-md-8')
+  row.append(nextDiv)
+  const body = document.createElement('div')
+  body.setAttribute('class', 'card-body')
+  nextDiv.append(body)
+  let newsTitle = document.createElement('h5')
+  newsTitle.setAttribute('class', 'card-title')
+  newsTitle.textContent = two
+  body.append(newsTitle)
+  let newsText = document.createElement('p')
+  newsText.setAttribute('class', 'card-text')
+  newsText.textContent = three
+  body.append(newsText)
+  const lastDiv = document.createElement('div')
+  body.append(lastDiv)
+  let readThis = document.createElement('a')
+  readThis.href = four
+  readThis.textContent = "Content     "
+  lastDiv.append(readThis)
+  let likeButton = document.createElement('button')
+  likeButton.textContent = 'Like'
+  likeButton.style.float = 'right'
+  likeButton.setAttribute('type', 'button')
+  likeButton.setAttribute('class', 'like-button btn btn-danger btn-outline-light')
+  likeButton.setAttribute('onclick', 'likeNews("'+id+'")')
+  lastDiv.append(likeButton)
+  let likeCounter = document.createElement('p')
+  likeCounter.textContent = "Likes: "+likes
+  lastDiv.append(likeCounter)
+  let latestNews = document.querySelector('#latest-news')
+  latestNews.append(newsCard)
+}
+
+function addAllNews(one, two, three, four, id, likes) {
   const newsCard = document.createElement('div')
   newsCard.setAttribute("class", "card mb-3 latest-card")
   const row = document.createElement('div')
@@ -181,4 +230,26 @@ document.addEventListener("DOMContentLoaded", () => {
       addLatestNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
     });
   });
+  fetch('https://floridamanstories.ml/api/getnewsfromlastsentbews', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({
+        lastNews : lastNews
+      })
+  })
+  .then(response => response.json())
+  .then(data => {
+    lastNews+=data.length
+    data.forEach(item => {
+      addAllNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
+    });
+  });
 });
+
+let allNews = document.querySelectorAll('allNews')
+targetElement.onscroll = (event) => {
+  console.log('Scrolling...');  
+};

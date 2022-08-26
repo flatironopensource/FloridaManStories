@@ -109,6 +109,28 @@ exports.addNewNewsToFirestore = functions.pubsub.schedule('every 20 minutes').ti
     });
 });
 
+// Get last sent news to the user and send user remaining news
+exports.getNewsFromLastSentNews = functions.https.onRequest((request, response) => {
+    const lastNews = request.body.lastNews;
+    // Get all news from the firestore
+    db.collection('articles').orderBy('publishedAt', 'desc').limit(20).startAt(lastNews).get().then((snapshot) => {
+        if (snapshot.empty) {
+            functions.logger.warn("WARNING: There is no news in the firestore!");
+            return response.status(200).send("There is no news in the firestore!");
+        }
+        else{
+            let news = [];
+            snapshot.forEach((doc) => {
+                news.push(doc.data());
+            });
+            return response.status(200).send(news);
+        }
+    }).catch((err) => {
+        functions.logger.error("DEV! Your code failed... Check out log: "+err);
+        return response.status(500).send("Sorry! Server is not available. <br> Detailed error log: "+err);
+    });
+});
+
 exports.getNews = functions.https.onRequest((request, response) => {
     // Request paramaeters
     let totalResult = request.body.totalResult;

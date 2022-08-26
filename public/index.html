@@ -12,10 +12,6 @@
     crossorigin="anonymous"></script>
   <link rel="manifest" href="./site.webmanifest">
   <link rel="shortcut icon" href="./assets/img/favicon.ico">
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/typesense-docsearch.js@1/dist/cdn/docsearch.min.css"
-  />
 </head>
 
 <body>
@@ -31,8 +27,6 @@
     <a href="#mostLiked">Most Liked</a>
     <!--Weather-->
     <a href="#weather" id="weather"></a>
-    <!-- SearchBar -->
-    <input type="search" id="searchbar">
     <!-- Add News -->
     <button type="button" class="btn btn-outline-success my-2 my-sm-0" style="float:right;" data-bs-toggle="modal" data-bs-target="#addNewsModal">
       Submit News
@@ -101,21 +95,33 @@
     </div>
   </div>
 
+  <!-- All News Section -->
+  <div class="container">
+    <div class="row" id="allNews">
+      <h3>All News (About Florida <em>Of Course</em>)</h3>
+      
+      <div class="card mb-3 latest-card" style="max-width:100%">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img class="img-fluid rounded-start" style="height: 100%" src="https://nypost.com/wp-content/uploads/sites/2/2022/08/Lululemon-robbery-police-1.jpg?quality=75&amp;strip=all&amp;w=1024">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Security guards feel helpless as brazen thieves loot high-end NYC stores</h5>
+              <p class="card-text">Workers at several high-end stores in NYC's West Village and Soho say they feel like
+                sitting ducks as thieves loot their stores in broad daylight with no consequences.</p>
+              <div><a href="https://bit.ly/3dX7sf9">Content </a><button type="button"
+                  class="like-button btn btn-danger btn-outline-light" onclick="likeNews()"
+                  style="float: right;">Like</button>
+                <p>Likes: 0</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="./assets/js/main.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/typesense-docsearch.js@1/dist/cdn/docsearch.min.js"></script>
-  <script>
-    docsearch({
-      inputSelector: '#searchbar',
-      typesenseCollectionName: 'articles', // Should match the collection name you mention in the docsearch scraper config.js
-      typesenseServerConfig: { 
-        nodes: [{
-          host: 'm6nhfae39ik8syzdp-1.a1.typesense.net', // For Typesense Cloud use xxx.a1.typesense.net
-          port: '443',      // For Typesense Cloud use 443
-          protocol: 'https'   // For Typesense Cloud use https
-        }],
-        apiKey: 'Z1h2967xpGrgJeavmbQTp4Jb9T7SIy23'
-      }
-    });
-  </script>
 </body>
 </html>

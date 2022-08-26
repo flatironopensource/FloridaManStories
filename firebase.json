@@ -18,6 +18,11 @@
         "region": "us-central1"
       },
       {
+        "source": "/api/getnewsfromlastsentnews",
+        "function": "getNewsFromLastSentNews",
+        "region": "us-central1"
+      },
+      {
         "source": "/api/incrementlikesonfirebase",
         "function": "incrementLikesOnFirebase",
         "region": "us-central1"
