@@ -35,7 +35,6 @@ function getWeather() {
 function addLatestNews(one, two, three, four, id, likes) {
   const newsCard = document.createElement('div')
   newsCard.setAttribute("class", "card mb-3 latest-card")
-  newsCard.setAttribute("style", "max-width: 100%;")
   const row = document.createElement('div')
   row.setAttribute("class", "row g-0")
   newsCard.append(row)
@@ -84,6 +83,7 @@ function addLatestNews(one, two, three, four, id, likes) {
 function addAllNews(one, two, three, four, id, likes) {
   const newsCard = document.createElement('div')
   newsCard.setAttribute("class", "card mb-3 latest-card")
+  newsCard.setAttribute("style", "width: 100%;")
   const row = document.createElement('div')
   row.setAttribute("class", "row g-0")
   newsCard.append(row)
@@ -219,7 +219,6 @@ document.addEventListener("DOMContentLoaded", () => {
   .then(response => response.json())
   .then(data => {
     data.forEach(item => {
-      console.log(item);
       addTopNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
     });
   });
@@ -230,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
       addLatestNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
     });
   });
-  fetch('https://floridamanstories.ml/api/getnewsfromlastsentbews', {
+  fetch('https://floridamanstories.ml/api/getnewslromlastsentnews', {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
