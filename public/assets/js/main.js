@@ -1,18 +1,5 @@
 let latestButton = document.getElementById("latest-button");
 
-docsearch({
-  inputSelector: '#searchbar',
-  typesenseCollectionName: 'articles', // Should match the collection name you mention in the docsearch scraper config.js
-  typesenseServerConfig: { 
-    nodes: [{
-      host: 'm6nhfae39ik8syzdp-1.a1.typesense.net', // For Typesense Cloud use xxx.a1.typesense.net
-      port: '443',      // For Typesense Cloud use 443
-      protocol: 'https'   // For Typesense Cloud use https
-    }],
-    apiKey: 'Z1h2967xpGrgJeavmbQTp4Jb9T7SIy23'
-  }
-});
-
 function getWeather() {
   fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/new%20york?unitGroup=metric&include=current%2Cdays&key=TKNH3KX7YXMA7N4FRV5VUQP9H&contentType=json')
     .then(res => res.json())
