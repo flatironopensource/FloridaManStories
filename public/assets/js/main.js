@@ -170,6 +170,7 @@ function addTopNews(one, two, three, four, id, likes) {
   likeButton.setAttribute('type', 'button')
   likeButton.setAttribute('class', 'like-button btn btn-danger btn-outline-light')
   likeButton.setAttribute('onclick', 'likeNews("'+id+'")')
+  likeButton.setAttribute('value', id)
   lastDiv.append(likeButton)
   let likeCounter = document.createElement('p')
   likeCounter.textContent = "Likes: "+likes
@@ -236,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       method: "POST",
       body: JSON.stringify({
-        lastNews : lastNews
+        lastNews : document.querySelector("#latest-news > div:nth-child(11) > div > div.col-md-8 > div > div > button").getAttribute("value")
       })
   })
   .then(response => response.json())
@@ -249,6 +250,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 let allNews = document.querySelectorAll('allNews')
-targetElement.onscroll = (event) => {
+allNews.onscroll = (event) => {
   console.log('Scrolling...');  
 };
