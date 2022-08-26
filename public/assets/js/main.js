@@ -80,9 +80,7 @@ function addLatestNews(one, two, three, four, id, likes) {
   latestNews.append(newsCard)
 }
 
-function likeNews(id){
-  fetch('https://floridamanstories.ml/api/incrementlikesonfirebase')
-}
+
 
 function addTopNews(one, two, three, four, id, likes) {
   const newsCard = document.createElement('div')
@@ -146,6 +144,22 @@ submitButton.addEventListener('submit', (e) =>{
 
 let allLikeButtons = document.querySelectorAll('.like-button')
 let latestLikes = document.querySelectorAll('latest-card')
+
+function likeNews(id){
+  fetch("https://floridamanstories.ml/api/incrementlikesonfirebase",
+  {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({
+         articleId : id
+      })
+  })
+  .then(function(res){ console.log(res) })
+  .catch(function(res){ console.log(res) })
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   getWeather()
