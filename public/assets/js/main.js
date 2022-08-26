@@ -189,7 +189,7 @@ submitButton.addEventListener('submit', (e) =>{
   let author = document.getElementById('author').value
   let url = document.getElementById('url').value
   let urlToImage = document.getElementById('image-url').value
-  let publishedAt = document.getElementById('published-at').value
+  let publishedAt = document.getElementById('publish').value
 
   fetch('https://floridamanstories.ml/api/insertusersubmittednews',
   {
@@ -261,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-$(window).bind('mousewheel', function(event) {
+window.addEvent('scroll', function(event) {
   if (event.originalEvent.wheelDelta >= 0) {
       console.log('Scroll up');
   }
