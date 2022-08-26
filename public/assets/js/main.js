@@ -43,6 +43,7 @@ function addLatestNews(one, two, three, four) {
   row.append(col)
   const newsImg = document.createElement('img')
   newsImg.setAttribute("class", "img-fluid rounded-start")
+  newsImg.setAttribute("style", "height: 100%")
   newsImg.src = one
   col.append(newsImg)
   const nextDiv = document.createElement('div')
@@ -88,6 +89,7 @@ function addTopNews(one, two, three, four) {
   row.append(col)
   const newsImg = document.createElement('img')
   newsImg.setAttribute("class", "img-fluid rounded-start")
+  newsImg.setAttribute("style", "height: 100%")
   newsImg.src = one
   col.append(newsImg)
   const nextDiv = document.createElement('div')
