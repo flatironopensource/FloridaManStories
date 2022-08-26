@@ -113,7 +113,7 @@ exports.addNewNewsToFirestore = functions.pubsub.schedule('every 20 minutes').ti
 exports.getNewsFromLastSentNews = functions.https.onRequest((request, response) => {
     const lastNews = request.body.lastNews;
     // Get all news from the firestore
-    db.collection('articles').orderBy('publishedAt', 'desc').startAt(lastNews).limit(20).get().then((snapshot) => {
+    db.collection('articles').orderBy('publishedAt', 'desc').limit(20).startAt(lastNews).get().then((snapshot) => {
         if (snapshot.empty) {
             functions.logger.warn("WARNING: There is no news in the firestore!");
             return response.status(200).send("There is no news in the firestore!");
@@ -195,28 +195,20 @@ exports.listPopularNewsFromFirestore = functions.https.onRequest((_request, resp
 });
 
 exports.insertUserSubmittedNews = functions.https.onRequest((request, response) => {
-    // Request parameters
-    let title = request.body.title;
-    let description = request.body.description;
-    let content = request.body.content;
-    let author = request.body.author;
-    let url = request.body.url;
-    let urlToImage = request.body.urlToImage;
-    let publishedAt = request.body.publishedAt;
-    let likes = 0;
-    if (title == null || description == null || content == null || author == null || url == null || urlToImage == null || publishedAt == null){
-        return response.status(400).send("Please fill out all the fields");
-    }
+    let currentDate = new Date();
+    currentDate.setMinutes(currentDate.getMinutes() - 19);
+    currentDate = currentDate.toISOString();
+
     // Insert article into firestore
-    db.collection('articles').add({
-        author: articles.author,
-        content: articles.content,
-        description: articles.description,
-        publishedAt: articles.publishedAt,
-        source: articles.source,
-        title: articles.title,
-        url: articles.url,
-        urlToImage: articles.urlToImage,
+    db.collection("articles").add({
+        author: request.body.author,
+        content: request.body.content,
+        description: request.body.description,
+        publishedAt: currentDate,
+        source: "Florida Man Stories",
+        title: request.body.title,
+        url: request.body.url,
+        urlToImage: request.body.urlToImage,
         likes: 0,
     }).then(() => {
         functions.logger.info("DEV! New news are added to firestore. News title: "+articles.title);
