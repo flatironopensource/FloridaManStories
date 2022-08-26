@@ -121,7 +121,7 @@ exports.getNewsFromLastSentNews = functions.https.onRequest((request, response) 
         else{
             let news = [];
             snapshot.forEach((doc) => {
-                news.push(doc.data());
+                news.push(doc);
             });
             return response.status(200).send(news);
         }

@@ -290,7 +290,7 @@ window.addEventListener("keydown", function(){
       lastNews+=data.length
       data.forEach(item => {
         console.log(item);
-        addAllNews(item.urlToImage.stringValue,item.title.stringValue,item.description.stringValue,item.shortUrl.stringValue,item._ref._path.segments[1],item.likes.integerValue);
+        addAllNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
       });
     });
    } else {
