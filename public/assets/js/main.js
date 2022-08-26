@@ -148,8 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
   .then(response => response.json())
   .then(data => {
     data.forEach(item => {
-      console.log(item._fieldsProto.urlToImage.stringValue);
-      // console.log(item._fieldsProto.urlToImage.stringValue);
+      addTopNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue);
     });
   });
 });
