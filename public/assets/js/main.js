@@ -261,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-let lastScrollTop = 100;
+let lastScrollTop = 1;
 
 // element should be replaced with the actual target element on which you have applied scroll, use window in case of no target element. Also tineout is the time in milliseconds after which the function will be called.
 window.addEventListener("scroll", function(){ // or window.addEventListener("scroll"....
