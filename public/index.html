@@ -100,5 +100,29 @@
   </div>
 
   <script src="./assets/js/main.js"></script>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-analytics.js";
+    import { appCheck } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app-check.js";
+    import { performance} from "https://www.gstatic.com/firebasejs/9.9.3/firebase-performance.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBQ29BzygLnbi_Kik040CJdD23VQGTS8JI",
+      authDomain: "florida-man-stories.firebaseapp.com",
+      projectId: "florida-man-stories",
+      storageBucket: "florida-man-stories.appspot.com",
+      messagingSenderId: "115019497136",
+      appId: "1:115019497136:web:13f78026a58f2f1314c575",
+      measurementId: "G-N9L93WEEF4"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const perf = app.performance();
+    const appCheck = app.appCheck();
+    appCheck.activate('6Lc4GqEhAAAAANnKkY9XUEdQ9VVes_NoTJvChFmy', true);
+  </script>
 </body>
 </html>

@@ -10,6 +10,20 @@ const db = getFirestore();
 
 // IMPORTANT: This is an starter function that will be triggered if there is no data in the firestore.
 exports.addAllNewsToFirestore = functions.runWith({ secrets: ["FIRSTSETUPPASSWORD","NEWSAPIKEY"] }).https.onRequest((request, response) => {
+    if (request.app == undefined) {
+        const rawToken = request.rawRequest.header['X-Firebase-AppCheck'];
+        if (rawToken == undefined) {
+          throw new functions.https.HttpsError(
+              'failed-precondition',
+              'The function must be called from an App Check verified app.'
+          );
+        } else {
+          throw new functions.https.HttpsError(
+              'unauthenticated',
+              'Provided App Check token failed to validate.'
+          );
+        }
+    }
     functions.logger.warn("WARNING: THIS IS AN STARTER FUNCTION THAT WILL BE TRIGGERED IF THERE IS NO DATA IN THE FIRESTORE!");
     const newsapikey = process.env.NEWSAPIKEY;
     const newsapi = new NewsAPI(newsapikey);
@@ -111,6 +125,20 @@ exports.addNewNewsToFirestore = functions.pubsub.schedule('every 20 minutes').ti
 
 // Get last sent news to the user and send user remaining news
 exports.getNewsFromLastSentNews = functions.https.onRequest((request, response) => {
+    if (request.app == undefined) {
+        const rawToken = request.rawRequest.header['X-Firebase-AppCheck'];
+        if (rawToken == undefined) {
+          throw new functions.https.HttpsError(
+              'failed-precondition',
+              'The function must be called from an App Check verified app.'
+          );
+        } else {
+          throw new functions.https.HttpsError(
+              'unauthenticated',
+              'Provided App Check token failed to validate.'
+          );
+        }
+    }
     const lastNews = request.body.lastNews;
     // Get all news from the firestore
     db.collection('articles').orderBy('publishedAt', 'desc').limit(100).startAt(lastNews).get().then((snapshot) => {
@@ -132,6 +160,20 @@ exports.getNewsFromLastSentNews = functions.https.onRequest((request, response) 
 });
 
 exports.getNews = functions.https.onRequest((request, response) => {
+    if (request.app == undefined) {
+        const rawToken = request.rawRequest.header['X-Firebase-AppCheck'];
+        if (rawToken == undefined) {
+          throw new functions.https.HttpsError(
+              'failed-precondition',
+              'The function must be called from an App Check verified app.'
+          );
+        } else {
+          throw new functions.https.HttpsError(
+              'unauthenticated',
+              'Provided App Check token failed to validate.'
+          );
+        }
+    }
     // Request paramaeters
     let totalResult = request.body.totalResult;
     let articles = [];
@@ -173,6 +215,20 @@ exports.getNews = functions.https.onRequest((request, response) => {
 }); 
 
 exports.getNewsLenghtFromFirestore = functions.https.onRequest((_request, response) => {
+    if (request.app == undefined) {
+        const rawToken = request.rawRequest.header['X-Firebase-AppCheck'];
+        if (rawToken == undefined) {
+          throw new functions.https.HttpsError(
+              'failed-precondition',
+              'The function must be called from an App Check verified app.'
+          );
+        } else {
+          throw new functions.https.HttpsError(
+              'unauthenticated',
+              'Provided App Check token failed to validate.'
+          );
+        }
+    }
     db.collection("articles").get().then(function(querySnapshot) {      
         console.log(querySnapshot.size); 
         return response.status(200).send("Your total news are: "+querySnapshot.size);
@@ -183,6 +239,20 @@ exports.getNewsLenghtFromFirestore = functions.https.onRequest((_request, respon
 // Won't work if there are no likes on some articles
 // NOTE: This will return whole collection of articles UNEDITED AND UNORDERED
 exports.listPopularNewsFromFirestore = functions.https.onRequest((_request, response) => {
+    if (request.app == undefined) {
+        const rawToken = request.rawRequest.header['X-Firebase-AppCheck'];
+        if (rawToken == undefined) {
+          throw new functions.https.HttpsError(
+              'failed-precondition',
+              'The function must be called from an App Check verified app.'
+          );
+        } else {
+          throw new functions.https.HttpsError(
+              'unauthenticated',
+              'Provided App Check token failed to validate.'
+          );
+        }
+    }
     db.collection("articles").orderBy("likes", "desc").orderBy("publishedAt", "desc").limit(10).get().then(function(querySnapshot) {
         let articles = [];
         querySnapshot.forEach(function(doc) {
@@ -195,6 +265,20 @@ exports.listPopularNewsFromFirestore = functions.https.onRequest((_request, resp
 });
 
 exports.insertUserSubmittedNews = functions.https.onRequest((request, response) => {
+    if (request.app == undefined) {
+        const rawToken = request.rawRequest.header['X-Firebase-AppCheck'];
+        if (rawToken == undefined) {
+          throw new functions.https.HttpsError(
+              'failed-precondition',
+              'The function must be called from an App Check verified app.'
+          );
+        } else {
+          throw new functions.https.HttpsError(
+              'unauthenticated',
+              'Provided App Check token failed to validate.'
+          );
+        }
+    }
     let currentDate = new Date();
     currentDate.setMinutes(currentDate.getMinutes() - 19);
     currentDate = currentDate.toISOString();
@@ -225,6 +309,20 @@ exports.insertUserSubmittedNews = functions.https.onRequest((request, response) 
     You need to give this function a ReCaptcha protection, APP CHECKK and just security sake add Cloudflare too.
 */
 exports.incrementLikesOnFirebase = functions.https.onRequest((request, response) => {
+    if (request.app == undefined) {
+        const rawToken = request.rawRequest.header['X-Firebase-AppCheck'];
+        if (rawToken == undefined) {
+          throw new functions.https.HttpsError(
+              'failed-precondition',
+              'The function must be called from an App Check verified app.'
+          );
+        } else {
+          throw new functions.https.HttpsError(
+              'unauthenticated',
+              'Provided App Check token failed to validate.'
+          );
+        }
+    }
     // Request parameters
     let articleId = request.body.articleId;
     if (articleId == null){
