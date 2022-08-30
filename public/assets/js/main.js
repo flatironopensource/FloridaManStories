@@ -17,8 +17,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const perf = getPerformance(app);
-const appCheck = app.appCheck();
-appCheck.activate('6Lc4GqEhAAAAANnKkY9XUEdQ9VVes_NoTJvChFmy',true);
+const check = app.appCheck();
+check.activate('6Lc4GqEhAAAAANnKkY9XUEdQ9VVes_NoTJvChFmy', true);
 
 let latestButton = document.getElementById("latest-button");
 let lastNews = 10;
