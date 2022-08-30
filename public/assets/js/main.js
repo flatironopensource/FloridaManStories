@@ -31,7 +31,7 @@ function getWeather() {
       const weatherImg = document.createElement('img')
       weatherImg.width = "25"
       weatherImg.height = "25"
-      for (i = 0; i < data.days.length; i++) {
+      for (let i = 0; i < data.days.length; i++) {
         const weatherDays = document.createElement('span')
         let key = new Date(data.days[i].datetimeEpoch * 1000)
         let temp = data.days[i].temp
@@ -247,12 +247,13 @@ function sleep (time) {
 }
 
 function likeNews(id){
+  console.log(getToken(appCheck, false));
   fetch("https://floridamanstories.ml/api/incrementlikesonfirebase",
   {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'X-Firebase-AppCheck': getToken(appCheck, false).token
+        'X-Firebase-AppCheck': getToken(appCheck, false)
       },
       method: "POST",
       body: JSON.stringify({
