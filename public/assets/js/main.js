@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-analytics.js";
-import "https://www.gstatic.com/firebasejs/9.9.3/firebase-app-check.js";
+import { initializeAppCheck, ReCaptchaV3Provider, getToken } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app-check.js";
 import { getPerformance } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-performance.js";
 
 const firebaseConfig = {
@@ -17,8 +17,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const perf = getPerformance(app);
-const check = app.appCheck();
-check.activate('6Lc4GqEhAAAAANnKkY9XUEdQ9VVes_NoTJvChFmy', true);
+const appCheck = initializeAppCheck(app, { provider: new ReCaptchaV3Provider('6Lc4GqEhAAAAANnKkY9XUEdQ9VVes_NoTJvChFmy'), isTokenAutoRefreshEnabled: true });
 
 let latestButton = document.getElementById("latest-button");
 let lastNews = 10;
@@ -217,7 +216,7 @@ submitButton.addEventListener('submit', (e) =>{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-Firebase-AppCheck': firebase.appCheck().getToken(false)
+      'X-Firebase-AppCheck': getToken(appCheck, false).token
     },
     body: JSON.stringify({
       title: title,
@@ -253,7 +252,7 @@ function likeNews(id){
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'X-Firebase-AppCheck': firebase.appCheck().getToken(false)
+        'X-Firebase-AppCheck': getToken(appCheck, false).token
       },
       method: "POST",
       body: JSON.stringify({
@@ -275,7 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'X-Firebase-AppCheck': firebase.appCheck().getToken(false)
+      'X-Firebase-AppCheck': getToken(appCheck, false).token
     },
   })
   .then(response => response.json())
@@ -288,7 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'X-Firebase-AppCheck': firebase.appCheck().getToken(false)
+      'X-Firebase-AppCheck': getToken(appCheck, false).token
     },
   })
   .then(response => response.json())
@@ -314,7 +313,7 @@ window.addEventListener("keydown", function(){
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'X-Firebase-AppCheck': firebase.appCheck().getToken(false)
+        'X-Firebase-AppCheck': getToken(appCheck, false).token
       },
       method: "POST",
       body: JSON.stringify({
