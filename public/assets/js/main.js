@@ -1,3 +1,25 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-analytics.js";
+import "https://www.gstatic.com/firebasejs/9.9.3/firebase-app-check.js";
+import { getPerformance } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-performance.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBQ29BzygLnbi_Kik040CJdD23VQGTS8JI",
+  authDomain: "florida-man-stories.firebaseapp.com",
+  projectId: "florida-man-stories",
+  storageBucket: "florida-man-stories.appspot.com",
+  messagingSenderId: "115019497136",
+  appId: "1:115019497136:web:13f78026a58f2f1314c575",
+  measurementId: "G-N9L93WEEF4"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const perf = getPerformance(app);
+const appCheck = app.appCheck();
+appCheck.activate('6Lc4GqEhAAAAANnKkY9XUEdQ9VVes_NoTJvChFmy',true);
+
 let latestButton = document.getElementById("latest-button");
 let lastNews = 10;
 let lastNewsId = "";
@@ -190,12 +212,12 @@ submitButton.addEventListener('submit', (e) =>{
   let url = document.getElementById('url').value
   let urlToImage = document.getElementById('image-url').value
   let publishedAt = document.getElementById('publish').value
-
   fetch('https://floridamanstories.ml/api/insertusersubmittednews',
   {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-Firebase-AppCheck': firebase.appCheck().getToken(false)
     },
     body: JSON.stringify({
       title: title,
@@ -230,7 +252,8 @@ function likeNews(id){
   {
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Firebase-AppCheck': firebase.appCheck().getToken(false)
       },
       method: "POST",
       body: JSON.stringify({
@@ -248,14 +271,26 @@ function likeNews(id){
 
 document.addEventListener("DOMContentLoaded", () => {
   getWeather()
-  fetch('https://floridamanstories.ml/api/listpopularnewsfromfirestore')
+  fetch('https://floridamanstories.ml/api/listpopularnewsfromfirestore',{
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'X-Firebase-AppCheck': firebase.appCheck().getToken(false)
+    },
+  })
   .then(response => response.json())
   .then(data => {
     data.forEach(item => {
       addTopNews(item._fieldsProto.urlToImage.stringValue,item._fieldsProto.title.stringValue,item._fieldsProto.description.stringValue,item._fieldsProto.shortUrl.stringValue,item._ref._path.segments[1],item._fieldsProto.likes.integerValue);
     });
   });
-  fetch('https://floridamanstories.ml/api/getnews')
+  fetch('https://floridamanstories.ml/api/getnews',{
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'X-Firebase-AppCheck': firebase.appCheck().getToken(false)
+    },
+  })
   .then(response => response.json())
   .then(data => {
     data.forEach(item => {
@@ -276,14 +311,15 @@ window.addEventListener("keydown", function(){
    if (st > lastScrollTop){
     console.log('Scroll down');
     fetch('https://floridamanstories.ml/api/getnewslromlastsentnews', {
-     headers: {
-       'Accept': 'application/json',
-       'Content-Type': 'application/json'
-       },
-       method: "POST",
-       body: JSON.stringify({
-         lastNews : lastNewsId
-       })
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-Firebase-AppCheck': firebase.appCheck().getToken(false)
+      },
+      method: "POST",
+      body: JSON.stringify({
+        lastNews : lastNewsId
+      })
     })
     .then(response => response.json())
     .then(data => {
